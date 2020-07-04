@@ -7,16 +7,16 @@ using System.Data;
 
 namespace BHYT.DAO
 {
-    public class ThucHienCLSDAO
+    public class BV_BenhNhanDAO
     {
-        private static ThucHienCLSDAO instance;
+        private static BV_BenhNhanDAO instance;
 
-        public static ThucHienCLSDAO Instance
+        public static BV_BenhNhanDAO Instance
         {
             get
             {
-                if (instance == null) instance = new ThucHienCLSDAO();
-               return ThucHienCLSDAO.instance ;
+                if (instance == null) instance = new BV_BenhNhanDAO();
+               return BV_BenhNhanDAO.instance ;
             }
 
           set

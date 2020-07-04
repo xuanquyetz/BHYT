@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BHYT.DTO
 {
-   public class ThucHienCLS
+   public class BV_BenhNhanDTO
     {
         private string ma;
         private DateTime? ngay;
@@ -21,7 +21,7 @@ namespace BHYT.DTO
         private string diaChi;
         private string soBHYT;
         private string maNoiDKBD;
-        public ThucHienCLS(string hoTen, int namSinh, string soDienThoai, string gioiTinh, string email, string diaChi, string soBHYT, string maNoiDKBD)
+        public BV_BenhNhanDTO(string hoTen, int namSinh, string soDienThoai, string gioiTinh, string email, string diaChi, string soBHYT, string maNoiDKBD)
         {
             this.HoTen = hoTen;
             this.NgaySinh = ngaySinh;
@@ -34,7 +34,7 @@ namespace BHYT.DTO
             this.SoBHYT = soBHYT;
             this.MaNoiDKBD = maNoiDKBD;
         }
-        public ThucHienCLS(DataRow row)
+        public BV_BenhNhanDTO(DataRow row)
         {
             this.Ma = row["Ma"].ToString();
             this.Ngay = (DateTime?)Convert.ToDateTime(row["Ngay"].ToString());

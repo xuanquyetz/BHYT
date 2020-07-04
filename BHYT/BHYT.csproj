@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BHYT</RootNamespace>
-    <AssemblyName>SUNS_DUOCQG</AssemblyName>
+    <AssemblyName>BHYT</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -125,14 +125,14 @@
     <Compile Include="DAO\MauCLSDAO.cs" />
     <Compile Include="DAO\NhomDichVuDAO.cs" />
     <Compile Include="DAO\QUANTRIDAO.cs" />
-    <Compile Include="DAO\ThucHienCLSDAO.cs" />
+    <Compile Include="DAO\BV_BenhNhanDAO.cs" />
     <Compile Include="DTO\BCBHYT.cs" />
     <Compile Include="DTO\DanhMucDVDTO.cs" />
     <Compile Include="DTO\DanhMucMauCLSDTO.cs" />
     <Compile Include="DTO\DanhMucNhanSuDTO.cs" />
     <Compile Include="DTO\NhomDVDTO.cs" />
     <Compile Include="DTO\QUANTRI.cs" />
-    <Compile Include="DTO\ThucHienCLS.cs" />
+    <Compile Include="DTO\BV_BenhNhanDTO.cs" />
     <Compile Include="fDMNhanSu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,16 +183,6 @@
     </Compile>
     <Compile Include="SplashScreen1.Designer.cs">
       <DependentUpon>SplashScreen1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SUNS_LB11DataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SUNS_LB11DataSet.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="ThucHien.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ThucHien.dbml</DependentUpon>
     </Compile>
     <Compile Include="ThucHienCLS.cs">
       <SubType>Form</SubType>
@@ -268,9 +258,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="ThucHien.dbml.layout">
-      <DependentUpon>ThucHien.dbml</DependentUpon>
-    </None>
     <EmbeddedResource Include="SplashScreen1.resx">
       <DependentUpon>SplashScreen1.cs</DependentUpon>
     </EmbeddedResource>
@@ -300,22 +287,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="SUNS_LB11DataSet.xsc">
-      <DependentUpon>SUNS_LB11DataSet.xsd</DependentUpon>
-    </None>
-    <None Include="SUNS_LB11DataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>SUNS_LB11DataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="SUNS_LB11DataSet.xss">
-      <DependentUpon>SUNS_LB11DataSet.xsd</DependentUpon>
-    </None>
-    <None Include="ThucHien.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>ThucHien.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DATA\" />

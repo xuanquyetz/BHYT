@@ -14,6 +14,7 @@ using DevExpress.XtraGrid.Controls;
 using DevExpress.XtraEditors;
 using BHYT.DTO;
 using DevExpress.XtraReports.UI;
+using System.IO;
 
 namespace BHYT
 {
@@ -25,6 +26,7 @@ namespace BHYT
         public ThucHienCLS()
         {
             InitializeComponent();
+            ReadConnect();
             LoadBenhNhan(dateTuNgay.Value, dateDenNgay.Value);
             Camrera();
             PlayCamera();
@@ -32,6 +34,95 @@ namespace BHYT
             LoadDichVuCDNhanh();
             LoadNhanSu();
             LoadMauCLS();
+            
+        }
+        public void ReadConnect()
+        {
+            try
+            {
+                string path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+
+                if (!Directory.Exists(path + @"\log"))
+                {
+                    Directory.CreateDirectory(path + @"\log");
+                }
+                FileStream streamCLS = new FileStream(Path.Combine(path, "log\\config.txt"), FileMode.Open);
+                StreamReader readCLS = new StreamReader(streamCLS, Encoding.Unicode);
+                var chuoicls = readCLS.ReadLine();
+                string[] araylistchuoi = chuoicls.Split(new char[] { '\t' });
+                BienToanCuc.IpSV = araylistchuoi[0];
+                BienToanCuc.DataBaseName = araylistchuoi[1];
+                BienToanCuc.User = araylistchuoi[2];
+                BienToanCuc.Pass = araylistchuoi[3];
+                readCLS.Close();
+                streamCLS.Close();
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+        public static class BienToanCuc
+        {
+            private static string ipSV;
+            private static string dataBaseName;
+            private static string user;
+            private static string pass;
+
+            public static string IpSV
+            {
+                get
+                {
+                    return ipSV;
+                }
+
+                set
+                {
+                    ipSV = value;
+                }
+            }
+
+            public static string DataBaseName
+            {
+                get
+                {
+                    return dataBaseName;
+                }
+
+                set
+                {
+                    dataBaseName = value;
+                }
+            }
+
+            public static string User
+            {
+                get
+                {
+                    return user;
+                }
+
+                set
+                {
+                    user = value;
+                }
+            }
+
+            public static string Pass
+            {
+                get
+                {
+                    return pass;
+                }
+
+                set
+                {
+                    pass = value;
+                }
+            }
         }
         void Camrera()
         {
@@ -74,75 +165,7 @@ namespace BHYT
             lbCD.Text = "";
             lbNamSinh.Text = "";
         }
-        private bool InsertEditBenhNhan()
-        {
-            string _Ma = "";
-            string _HoTen = "";
-            int _NgaySinh = 0;
-            int _ThangSinh = 0;
-            int _NamSinh = 0;
-            string _DienThoai = "";
-            string _GioiTinh = "";
-            string _Email = "";
-            string _DiaChi = "";
-            string _SoBHYT = "";
-            string _MaNoiDKBD = "";
-            if (txtHoTen.Text != "" && txtNamSinh.Text != "" && txtGioiTinh.Text != "")
-            {
-                if (txtGioiTinh.Text == "Nam" || txtGioiTinh.Text == "Nữ")
-                {
-                    _Ma = txtMaBenhNhan.ToString();
-                    _HoTen = txtHoTen.EditValue.ToString();
-                    _NgaySinh = (int)txtNgaySinh.EditValue;
-                    _ThangSinh = (int)txtThangSinh.EditValue;
-                    _NamSinh = (int)txtNamSinh.EditValue;
-                    _DienThoai = txtSoDienThoai.ToString();
-                    _GioiTinh = txtGioiTinh.ToString();
-                   _Email = txtEmail.ToString();
-                    _DiaChi = txtDiaChi.ToString();
-                    _SoBHYT = txtSoBHYT.ToString();
-                    _MaNoiDKBD = txtMaDKBD.ToString();
-
-
-                }
-                else MessageBox.Show("Vui lòng nhập đúng giới tính 'Nam'hoặc 'Nữ'");
-            }
-            else
-            {
-                MessageBox.Show("Vui lòng kiểm tra lại Họ Tên, Năm Sinh, Giới Tính không được để trống");
-            }
-            int row = gridView1.FocusedRowHandle;
-            string MaID = "Ma";
-            object value = gridView1.GetRowCellValue(row, MaID);
-            if (value != null)
-            {
-                //ThucHienDataContext dt = new ThucHienDataContext();
-                ThucHienDataContext h = new ThucHienDataContext();
-                var BenhNhan2 = h.BV_BenhNhans.Where(q => q.Ma == Ma).SingleOrDefault();
-                // MessageBox.Show("Mã:" + BenhNhan.Ma);
-                BenhNhan2.Ma = _Ma;
-                BenhNhan2.HoTen = _HoTen;
-                BenhNhan2.NgaySinh = _NgaySinh;
-                BenhNhan2.ThangSinh = _ThangSinh;
-                BenhNhan2.NamSinh = _NamSinh;
-                BenhNhan2.DienThoai = _DienThoai;
-                BenhNhan2.GioiTinh = _GioiTinh;
-                BenhNhan2.Email = _Email;
-                BenhNhan2.DiaChi = _DiaChi;
-                BenhNhan2.SoBHYT = _SoBHYT;
-                BenhNhan2.MaNoiDKBHYT = _MaNoiDKBD;
-                h.SubmitChanges();
-                
-                XtraMessageBox.Show("Cập Nhật Thành Công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //ThongTinRong();
-                txtHoTen.Focus();
-                return true;
-            }
-            return false;
-               
-        }  /// <summary>
-        /// Viết Linq thử
-        /// </summary>
+        
         void InsertBenhNhan()
         {
             string Ma = txtMaBenhNhan.Text;
@@ -160,7 +183,7 @@ namespace BHYT
             {
                 if (txtGioiTinh.Text == "Nam" || txtGioiTinh.Text == "Nữ")
                 {
-                    ThucHienCLSDAO.Instance.InsertBenhNhan(HoTen,NgaySinh,ThangSinh, NamSinh, DienThoai, GioiTinh, Email, DiaChi, SoBHYT, MaNoiDKBD);
+                    BV_BenhNhanDAO.Instance.InsertBenhNhan(HoTen,NgaySinh,ThangSinh, NamSinh, DienThoai, GioiTinh, Email, DiaChi, SoBHYT, MaNoiDKBD);
                     MessageBox.Show("Thêm thành công");
                     ThongTinRong();
                 }
@@ -189,38 +212,12 @@ namespace BHYT
             }
             else 
             {
-                ThucHienCLSDAO.Instance.UpdateBenhNhan(HoTen, NgaySinh, ThangSinh, NamSinh, DienThoai, GioiTinh, Email, DiaChi, SoBHYT, MaNoiDKBD, Ma);
+                BV_BenhNhanDAO.Instance.UpdateBenhNhan(HoTen, NgaySinh, ThangSinh, NamSinh, DienThoai, GioiTinh, Email, DiaChi, SoBHYT, MaNoiDKBD, Ma);
                 XtraMessageBox.Show("Cập Nhật Thành Công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 CloseCombox();
             }
         }
-        private void DeleteBenhNhan()
-        {
-            if (XtraMessageBox.Show("Bạn có muốn xóa bệnh nhân "+txtHoTen.Text+" này không?", "Cảnh báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                int row = gridView1.FocusedRowHandle;
-                string MaID = "Ma";
-                object value = gridView1.GetRowCellValue(row, MaID);
-                if (value != null)
-                {
-                    ThucHienDataContext dt = new ThucHienDataContext();
-                    var BenhNhan = dt.BV_BenhNhans.Where(q => q.Ma == value).SingleOrDefault();
-                    if (BenhNhan != null)
-                    {
-                        dt.BV_BenhNhans.DeleteOnSubmit(BenhNhan);
-                        dt.SubmitChanges();
-                        XtraMessageBox.Show("Xóa Thành Công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        LoadBenhNhan(dateTuNgay.Value, dateDenNgay.Value);
-                    }
-                    // XtraMessageBox.Show("Mã đã xóa: " + value.ToString());
-                }
-                else
-                {
-                    XtraMessageBox.Show("Vui lòng chọn bệnh nhân cần xóa", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-
-            }
-        }
+       
         private void OpenCombox()
         {
             txtHoTen.Enabled = true;
@@ -247,29 +244,7 @@ namespace BHYT
             txtDiaChi.Enabled = false;
             txtEmail.Enabled = false;
         }
-        private void FillDataUpdate()
-        {
-            if (Ma != "")
-            {
-                ThucHienDataContext dt = new ThucHienDataContext();
-                var BenhNhan = dt.BV_BenhNhans.Where(q => q.Ma == Ma).SingleOrDefault();
-                if (BenhNhan != null)
-                {
-                    txtMaBenhNhan.EditValue = BenhNhan.Ma;
-                    txtHoTen.EditValue = BenhNhan.HoTen;
-                    txtNamSinh.EditValue = BenhNhan.NamSinh;
-                    txtNgaySinh.EditValue = BenhNhan.NgaySinh;
-                    txtThangSinh.EditValue = BenhNhan.ThangSinh;
-                    txtSoDienThoai.EditValue = BenhNhan.DienThoai;
-                    txtSoBHYT.EditValue = BenhNhan.SoBHYT;
-                    txtMaDKBD.EditValue = BenhNhan.MaNoiDKBHYT;
-                    txtGioiTinh.EditValue = BenhNhan.GioiTinh;
-                    txtDiaChi.EditValue = BenhNhan.DiaChi;
-                    txtEmail.EditValue = BenhNhan.Email;
-
-                }
-            }
-        }
+       
         private void LoadNhomDV()
         {
             cbNhomDV.DataSource = NhomDichVuDAO.Instance.LoadNhomDV();
@@ -329,8 +304,8 @@ namespace BHYT
         }
         private void LoadBenhNhan(DateTime? tuNgay, DateTime? denNgay)
         {
-            gridDanhSach.DataSource = ThucHienCLSDAO.Instance.LoadBenhNhanByNgay(tuNgay, denNgay);
-            dataGridView1.DataSource = ThucHienCLSDAO.Instance.LoadBenhNhanByNgay(tuNgay, denNgay);
+            gridDanhSach.DataSource = BV_BenhNhanDAO.Instance.LoadBenhNhanByNgay(tuNgay, denNgay);
+            dataGridView1.DataSource = BV_BenhNhanDAO.Instance.LoadBenhNhanByNgay(tuNgay, denNgay);
         }
         #region Even
 
@@ -435,16 +410,12 @@ namespace BHYT
         }
         private void gridView1_RowClick(object sender, DevExpress.XtraGrid.Views.Grid.RowClickEventArgs e)
         {
-            //int id = (int)gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns["NamSinh"]);
-            //txtNamSinh.Text = id.ToString();
-            //int id2 = (int)gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns["HoTen"]);
-            //txtHoTen.Text = id2.ToString();
-            //int id = (int)gridView1.GetRowCellValue(gridView1.FocusedRowHandle, gridView1.Columns["NamSinh"]);
+
         }
 
         private void gridView1_FocusedRowLoaded(object sender, DevExpress.XtraGrid.Views.Base.RowEventArgs e)
         {
-            FillDataUpdate();
+         
             txtHoTen.EditValue = lbHoTen;
         }
 
@@ -468,15 +439,12 @@ namespace BHYT
         private void bntDelete_Click(object sender, EventArgs e)
        // private void bntDelete_Click(object sender, DevExpress.XtraBars.ListItemClickEventArgs e)
         {
-            DeleteBenhNhan();
+           
             ThongTinRong();
             OpenCombox();
             txtHoTen.Focus();
-
         }
-       
-        
-        private void bntEdit_Click(object sender, EventArgs e)
+      private void bntEdit_Click(object sender, EventArgs e)
         {
             OpenCombox();
             int row = gridView1.FocusedRowHandle;
@@ -485,8 +453,6 @@ namespace BHYT
             if (value != null)
             {
                 Ma = value.ToString();
-                
-               
             }
             else
             {
@@ -513,7 +479,6 @@ namespace BHYT
             if (value != null)
             {
                 Ma = value.ToString();
-                FillDataUpdate();
                 CloseCombox();
                 lbHoTen.Text = txtHoTen.Text;
                 //char.ToUpper(char.Parse(lbHoTen.Text));

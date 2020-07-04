@@ -11,13 +11,13 @@ using System.Windows.Forms;
 using static BHYT.CauHinhCSDL;
 using static BHYT.FormMain;
 using System.IO;
+using static BHYT.ThucHienCLS;
 
 namespace BHYT
 {
-
+    
     public class KeNoiData // Tạo class ket nối
     {
-       
         private static KeNoiData instance; //Ctrl+.
         public static KeNoiData Instance
         {
@@ -35,8 +35,6 @@ namespace BHYT
         }
        
         public KeNoiData() {
-           
-            
         }
        // string s = ..IpSV;
         private string connectionstr = @"Data Source=" + BienToanCuc.IpSV + ";Initial Catalog=" + BienToanCuc.DataBaseName + ";User ID=" + BienToanCuc.User + ";Password=" + BienToanCuc.Pass ;

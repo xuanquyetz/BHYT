@@ -35,9 +35,6 @@
             this.ribbonStatusBar1 = new DevExpress.XtraBars.Ribbon.RibbonStatusBar();
             this.applicationMenu1 = new DevExpress.XtraBars.Ribbon.ApplicationMenu(this.components);
             this.upsBCBHYT21BindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.sUNS_LB11DataSet = new BHYT.SUNS_LB11DataSet();
-            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
-            this.ups_BCBHYT_21TableAdapter = new BHYT.SUNS_LB11DataSetTableAdapters.Ups_BCBHYT_21TableAdapter();
             this.reportDesigner1 = new DevExpress.XtraReports.UserDesigner.XRDesignMdiController(this.components);
             this.tabPane1 = new DevExpress.XtraBars.Navigation.TabPane();
             this.tabNavigationPage1 = new DevExpress.XtraBars.Navigation.TabNavigationPage();
@@ -112,7 +109,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.xrDesignRibbonController1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.applicationMenu1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.upsBCBHYT21BindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sUNS_LB11DataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabPane1)).BeginInit();
             this.tabPane1.SuspendLayout();
             this.tabNavigationPage1.SuspendLayout();
@@ -166,12 +162,11 @@
             // upsBCBHYT21BindingSource
             // 
             this.upsBCBHYT21BindingSource.DataMember = "Ups_BCBHYT_21";
-            this.upsBCBHYT21BindingSource.DataSource = this.sUNS_LB11DataSet;
+
             // 
             // sUNS_LB11DataSet
             // 
-            this.sUNS_LB11DataSet.DataSetName = "SUNS_LB11DataSet";
-            this.sUNS_LB11DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+           
             // 
             // simpleButton1
             // 
@@ -184,7 +179,7 @@
             // 
             // ups_BCBHYT_21TableAdapter
             // 
-            this.ups_BCBHYT_21TableAdapter.ClearBeforeFill = true;
+     
             // 
             // reportDesigner1
             // 
@@ -955,7 +950,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.xrDesignRibbonController1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.applicationMenu1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.upsBCBHYT21BindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.sUNS_LB11DataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tabPane1)).EndInit();
             this.tabPane1.ResumeLayout(false);
             this.tabNavigationPage1.ResumeLayout(false);
@@ -995,8 +989,6 @@
         #endregion
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private System.Windows.Forms.BindingSource upsBCBHYT21BindingSource;
-        private SUNS_LB11DataSet sUNS_LB11DataSet;
-        private SUNS_LB11DataSetTableAdapters.Ups_BCBHYT_21TableAdapter ups_BCBHYT_21TableAdapter;
         private DevExpress.XtraReports.UserDesigner.XRDesignMdiController reportDesigner1;
         private DevExpress.XtraReports.UserDesigner.XRDesignRibbonController xrDesignRibbonController1;
         private DevExpress.XtraBars.Ribbon.ApplicationMenu applicationMenu1;
