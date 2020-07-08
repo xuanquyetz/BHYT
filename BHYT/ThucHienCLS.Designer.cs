@@ -58,6 +58,8 @@
             this.panel12 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.lbHoTen2 = new System.Windows.Forms.Label();
+            this.lbId = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.dateDenNgay = new System.Windows.Forms.DateTimePicker();
             this.label28 = new System.Windows.Forms.Label();
@@ -349,9 +351,9 @@
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.gridSplitContainer1);
             this.panel2.Controls.Add(this.panel12);
-            this.panel2.Location = new System.Drawing.Point(2, 162);
+            this.panel2.Location = new System.Drawing.Point(2, 120);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(217, 538);
+            this.panel2.Size = new System.Drawing.Size(217, 580);
             this.panel2.TabIndex = 1;
             // 
             // gridSplitContainer1
@@ -361,7 +363,7 @@
             this.gridSplitContainer1.Location = new System.Drawing.Point(0, 0);
             this.gridSplitContainer1.Name = "gridSplitContainer1";
             this.gridSplitContainer1.Panel1.Controls.Add(this.gridDanhSach);
-            this.gridSplitContainer1.Size = new System.Drawing.Size(215, 536);
+            this.gridSplitContainer1.Size = new System.Drawing.Size(215, 578);
             this.gridSplitContainer1.TabIndex = 1;
             // 
             // gridDanhSach
@@ -371,7 +373,7 @@
             this.gridDanhSach.MainView = this.gridView1;
             this.gridDanhSach.Name = "gridDanhSach";
             this.gridDanhSach.ShowOnlyPredefinedDetails = true;
-            this.gridDanhSach.Size = new System.Drawing.Size(215, 536);
+            this.gridDanhSach.Size = new System.Drawing.Size(215, 578);
             this.gridDanhSach.TabIndex = 1;
             this.gridDanhSach.UseEmbeddedNavigator = true;
             this.gridDanhSach.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -536,6 +538,8 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.lbHoTen2);
+            this.panel3.Controls.Add(this.lbId);
             this.panel3.Controls.Add(this.label23);
             this.panel3.Controls.Add(this.dateDenNgay);
             this.panel3.Controls.Add(this.label28);
@@ -558,6 +562,27 @@
             this.panel3.Size = new System.Drawing.Size(1150, 631);
             this.panel3.TabIndex = 2;
             // 
+            // lbHoTen2
+            // 
+            this.lbHoTen2.AutoSize = true;
+            this.lbHoTen2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbHoTen2.ForeColor = System.Drawing.Color.Blue;
+            this.lbHoTen2.Location = new System.Drawing.Point(18, 6);
+            this.lbHoTen2.Name = "lbHoTen2";
+            this.lbHoTen2.Size = new System.Drawing.Size(67, 20);
+            this.lbHoTen2.TabIndex = 18;
+            this.lbHoTen2.Text = "Họ Tên";
+            // 
+            // lbId
+            // 
+            this.lbId.AutoSize = true;
+            this.lbId.Location = new System.Drawing.Point(887, 11);
+            this.lbId.Name = "lbId";
+            this.lbId.Size = new System.Drawing.Size(23, 13);
+            this.lbId.TabIndex = 17;
+            this.lbId.Text = "null";
+            this.lbId.Visible = false;
+            // 
             // label23
             // 
             this.label23.AutoSize = true;
@@ -571,7 +596,7 @@
             // 
             // dateDenNgay
             // 
-            this.dateDenNgay.Location = new System.Drawing.Point(175, 5);
+            this.dateDenNgay.Location = new System.Drawing.Point(599, 11);
             this.dateDenNgay.Name = "dateDenNgay";
             this.dateDenNgay.Size = new System.Drawing.Size(136, 20);
             this.dateDenNgay.TabIndex = 9;
@@ -602,7 +627,7 @@
             // 
             // dateTuNgay
             // 
-            this.dateTuNgay.Location = new System.Drawing.Point(22, 5);
+            this.dateTuNgay.Location = new System.Drawing.Point(467, 0);
             this.dateTuNgay.Name = "dateTuNgay";
             this.dateTuNgay.Size = new System.Drawing.Size(136, 20);
             this.dateTuNgay.TabIndex = 7;
@@ -650,7 +675,7 @@
             this.lbNamSinh.AutoSize = true;
             this.lbNamSinh.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbNamSinh.ForeColor = System.Drawing.Color.Blue;
-            this.lbNamSinh.Location = new System.Drawing.Point(231, 3);
+            this.lbNamSinh.Location = new System.Drawing.Point(794, 3);
             this.lbNamSinh.Name = "lbNamSinh";
             this.lbNamSinh.Size = new System.Drawing.Size(0, 26);
             this.lbNamSinh.TabIndex = 10;
@@ -1203,13 +1228,13 @@
             // lbCD
             // 
             this.lbCD.AutoSize = true;
-            this.lbCD.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCD.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbCD.ForeColor = System.Drawing.Color.Blue;
-            this.lbCD.Location = new System.Drawing.Point(772, 3);
+            this.lbCD.Location = new System.Drawing.Point(902, 9);
             this.lbCD.Name = "lbCD";
-            this.lbCD.Size = new System.Drawing.Size(16, 24);
+            this.lbCD.Size = new System.Drawing.Size(34, 20);
             this.lbCD.TabIndex = 6;
-            this.lbCD.Text = ".";
+            this.lbCD.Text = "DV";
             // 
             // label15
             // 
@@ -1225,7 +1250,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.ForeColor = System.Drawing.Color.Blue;
-            this.label16.Location = new System.Drawing.Point(0, 109);
+            this.label16.Location = new System.Drawing.Point(0, 101);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(61, 13);
             this.label16.TabIndex = 8;
@@ -1236,9 +1261,9 @@
             this.bntGet.Appearance.ForeColor = System.Drawing.Color.Blue;
             this.bntGet.Appearance.Options.UseForeColor = true;
             this.bntGet.Image = ((System.Drawing.Image)(resources.GetObject("bntGet.Image")));
-            this.bntGet.Location = new System.Drawing.Point(120, 129);
+            this.bntGet.Location = new System.Drawing.Point(156, 69);
             this.bntGet.Name = "bntGet";
-            this.bntGet.Size = new System.Drawing.Size(83, 28);
+            this.bntGet.Size = new System.Drawing.Size(62, 44);
             this.bntGet.TabIndex = 12;
             this.bntGet.Text = "GET";
             this.bntGet.Click += new System.EventHandler(this.bntGet_Click);
@@ -1249,26 +1274,26 @@
             // 
             // dateEditTuNgay
             // 
-            this.dateEditTuNgay.EditValue = new System.DateTime(2020, 7, 8, 0, 0, 0, 0);
+            this.dateEditTuNgay.EditValue = new System.DateTime(2020, 7, 9, 1, 35, 9, 719);
             this.dateEditTuNgay.Location = new System.Drawing.Point(61, 68);
             this.dateEditTuNgay.Name = "dateEditTuNgay";
             this.dateEditTuNgay.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dateEditTuNgay.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.dateEditTuNgay.Size = new System.Drawing.Size(142, 20);
+            this.dateEditTuNgay.Size = new System.Drawing.Size(81, 20);
             this.dateEditTuNgay.TabIndex = 13;
             // 
             // dateEditDenNgay
             // 
-            this.dateEditDenNgay.EditValue = new System.DateTime(2020, 7, 8, 0, 0, 0, 0);
-            this.dateEditDenNgay.Location = new System.Drawing.Point(61, 103);
+            this.dateEditDenNgay.EditValue = new System.DateTime(2020, 7, 9, 1, 35, 25, 761);
+            this.dateEditDenNgay.Location = new System.Drawing.Point(61, 94);
             this.dateEditDenNgay.Name = "dateEditDenNgay";
             this.dateEditDenNgay.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dateEditDenNgay.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.dateEditDenNgay.Size = new System.Drawing.Size(142, 20);
+            this.dateEditDenNgay.Size = new System.Drawing.Size(81, 20);
             this.dateEditDenNgay.TabIndex = 14;
             // 
             // ThucHienCLS
@@ -1287,7 +1312,6 @@
             this.Name = "ThucHienCLS";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ThucHienCLS";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.ThucHienCLS_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ThucHienCLS_KeyDown);
             this.panel1.ResumeLayout(false);
@@ -1443,5 +1467,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
         private DevExpress.XtraEditors.DateEdit dateEditTuNgay;
         private DevExpress.XtraEditors.DateEdit dateEditDenNgay;
+        private System.Windows.Forms.Label lbId;
+        private System.Windows.Forms.Label lbHoTen2;
     }
 }

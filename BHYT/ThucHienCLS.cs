@@ -172,6 +172,7 @@ namespace BHYT
             rtDeNghi.Text = "";
             rtKetLuan.Text = "";
             rtMauCLS.Text = "";
+            lbHoTen2.Text = "";
         }
         
         void Insert_Update_BenhNhan()
@@ -197,8 +198,13 @@ namespace BHYT
                         BV_BenhNhanDAO.Instance.InsertBenhNhan(HoTen, NgaySinh, ThangSinh, NamSinh, DienThoai, GioiTinh, Email, DiaChi, SoBHYT, MaNoiDKBD);
                         var listBn = BV_BenhNhanDAO.Instance.GetListFullBV_BenhNhan().OrderByDescending(k => k.ThoiGianTao).First();
                         string maBN = listBn.Ma;
+                        string hoTen = listBn.HoTen;
+                        string namSinh = listBn.NamSinh.ToString();
+                        lbHoTen2.Text = hoTen + "-" + namSinh;
                         BV_PhieuCDHADAO.Instance.InsertBV_PhieuCDHA(cbKhoaPhong.Text, maBN,cbDichVu.SelectedValue.ToString(), cbTenBs.SelectedValue.ToString(), rtMauCLS.Text, "", rtKetLuan.Text, rtDeNghi.Text, 1, "", mmChanDoan.Text, "DaThucHien", cbMauCLS.SelectedValue.ToString(), 1, 0);
                         XtraMessageBox.Show("Thêm thành công " + HoTen, "Thành công!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //lbId.Text = maBN;//Tao moi
+                        lbId.Text  = BV_PhieuCDHADAO.Instance.GetListFullBV_PhieuCDHA().OrderByDescending(q => q.ThoiGian).First().Id;
                         ThongTinRong();
                     }
                     else
@@ -334,6 +340,7 @@ namespace BHYT
         private void bt_Click(object sender, EventArgs e)
         {
             string Ten = ((sender as Button).Tag as DanhMucDVDTO).Ten;
+            lbCD.Visible = true;
             lbCD.Text = Ten;
         }
         
@@ -468,10 +475,11 @@ namespace BHYT
         private void bntDelete_Click(object sender, EventArgs e)
        // private void bntDelete_Click(object sender, DevExpress.XtraBars.ListItemClickEventArgs e)
         {
-           
-            ThongTinRong();
-            OpenCombox();
-            txtHoTen.Focus();
+
+            //ThongTinRong();
+            //OpenCombox();
+            //txtHoTen.Focus();
+            XtraMessageBox.Show("Chúng tôi đang hoàn thiện", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
       private void bntEdit_Click(object sender, EventArgs e)
         {
@@ -626,32 +634,46 @@ namespace BHYT
             {
                 var listCDHA = BV_PhieuCDHADAO.Instance.GetListFullBV_PhieuCDHA().Where(q=>q.Id==_ma);
                 var listBN = BV_BenhNhanDAO.Instance.GetListFullBV_BenhNhan();
+                var listDV = DanhMucDVDAO.Instance.GetListDVFull();
                 //var listDMHH = DanhMucDVDAO.Instance.GetListDVFull();
                 var listChung = listCDHA.Join(listBN,
                     o => o.MaBN,
                     p => p.Ma,
                     (o, p) => new
                     {
-                        Ma=p.Ma,
-                        HoTen=p.HoTen,
-                        NgaySinh=p.NgaySinh,
-                        ThangSinh=p.ThangSinh,
-                        NamSinh=p.NamSinh,
-                        GioiTinh=p.GioiTinh,
-                        DiaChi=p.DiaChi,
-                        SoDienThoai=p.SoDienThoai,
-                        Email=p.Email,
-                        NguoiThucHien=o.NguoiThucHien,
-                        ChanDoan=o.ChanDoan,
-                        KhoaPhong=o.KhoaPhong,
-                        MaDV=o.MaDV,
-                        MaMauCLS=o.MaMauCLS,
-                        DeNghi=o.DeNghi,
-                        KetLuan=o.KetLuan,
-                        NoiDung=o.NoiDung,
-                        HinhAnhJson=o.HinhAnhjson,
-                        SoAnhDaChon=o.SoAnhDaChon,
-                   }).ToList();
+                        Ma = p.Ma,
+                        HoTen = p.HoTen,
+                        NgaySinh = p.NgaySinh,
+                        ThangSinh = p.ThangSinh,
+                        NamSinh = p.NamSinh,
+                        GioiTinh = p.GioiTinh,
+                        DiaChi = p.DiaChi,
+                        SoDienThoai = p.SoDienThoai,
+                        Email = p.Email,
+                        NguoiThucHien = o.NguoiThucHien,
+                        ChanDoan = o.ChanDoan,
+                        KhoaPhong = o.KhoaPhong,
+                        MaDV = o.MaDV,
+                        MaMauCLS = o.MaMauCLS,
+                        DeNghi = o.DeNghi,
+                        KetLuan = o.KetLuan,
+                        NoiDung = o.NoiDung,
+                        HinhAnhJson = o.HinhAnhjson,
+                        SoAnhDaChon = o.SoAnhDaChon,
+                        Id = o.Id
+                    }).ToList();
+
+                var list3 = listChung.Join(listDV,
+                    l=>l.MaDV,
+                    m=>m.Ma,
+                    (l, m) => new
+                    {
+                        l.MaDV,
+                        m.Ten,
+                        m.DonGia
+                    }
+                    ).SingleOrDefault();
+
                 var list2 = listChung.SingleOrDefault();
                 txtMaBenhNhan.EditValue = list2.Ma;
                 txtHoTen.EditValue = list2.HoTen;
@@ -670,14 +692,49 @@ namespace BHYT
                 rtDeNghi.Text = list2.DeNghi;
                 rtKetLuan.Text = list2.KetLuan;
                 rtMauCLS.Text = list2.NoiDung;
+                lbId.Text = list2.Id;
+                lbHoTen2.Text = list2.HoTen + " - " + list2.NamSinh+" - "+list3.Ten;
+                lbCD.Visible = false;
             }
         }
 
         private void bntPrint_Click(object sender, EventArgs e)
         {
-
-            InPhieuCDHA inreport = new InPhieuCDHA();
-            inreport.ShowPreviewDialog();
+            var listCDHA = BV_PhieuCDHADAO.Instance.GetListFullBV_PhieuCDHA().Where(q => q.Id == lbId.Text);
+            var listBN = BV_BenhNhanDAO.Instance.GetListFullBV_BenhNhan();
+            var listChung = listCDHA.Join(listBN,
+                   o => o.MaBN,
+                   p => p.Ma,
+                   (o, p) => new
+                   {
+                       Ma = p.Ma,
+                       HoTen = p.HoTen,
+                       NgaySinh = p.NgaySinh,
+                       ThangSinh = p.ThangSinh,
+                       NamSinh = p.NamSinh,
+                       GioiTinh = p.GioiTinh,
+                       DiaChi = p.DiaChi,
+                       SoDienThoai = p.SoDienThoai,
+                       Email = p.Email,
+                       NguoiThucHien = o.NguoiThucHien,
+                       ChanDoan = o.ChanDoan,
+                       KhoaPhong = o.KhoaPhong,
+                       MaDV = o.MaDV,
+                       MaMauCLS = o.MaMauCLS,
+                       DeNghi = o.DeNghi,
+                       KetLuan = o.KetLuan,
+                       NoiDung = o.NoiDung,
+                       HinhAnhJson = o.HinhAnhjson,
+                       SoAnhDaChon = o.SoAnhDaChon,
+                       Id = o.Id
+                   }).ToList();
+        InPhieuCDHA inreport = new InPhieuCDHA();
+            inreport.DataSource = listChung;
+            if (lbId.Text != "null")
+            {
+                inreport.ShowPreviewDialog();
+            }
+            else XtraMessageBox.Show("Vui lòng chọn bệnh nhân để in", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
     }
 }

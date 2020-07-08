@@ -22,7 +22,8 @@ namespace BHYT
 
             BonusSkins.Register();
             SkinManager.EnableFormSkins();
-            UserLookAndFeel.Default.SetSkinStyle("The Asphalt World");
+           // UserLookAndFeel.Default.SetSkinStyle("The Asphalt World");
+            UserLookAndFeel.Default.SetSkinStyle("My Good Style");
             //SplashScreenManager.ShowForm(typeof(SplashScreen1));
             Application.Run(new ThucHienCLS());
            // Application.Run(new FormThemThongTinKhachHang());

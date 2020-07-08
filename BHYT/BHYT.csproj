@@ -134,6 +134,7 @@
     <Compile Include="DTO\DanhMucDVDTO.cs" />
     <Compile Include="DTO\DanhMucMauCLSDTO.cs" />
     <Compile Include="DTO\DanhMucNhanSuDTO.cs" />
+    <Compile Include="DTO\InPhieuCDHA_Report.cs" />
     <Compile Include="DTO\NhomDVDTO.cs" />
     <Compile Include="DTO\QUANTRI.cs" />
     <Compile Include="DTO\BV_BenhNhanDTO.cs" />
