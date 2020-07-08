@@ -43,10 +43,12 @@
       <HintPath>Y:\QUYET\CameraAF\Release\AForge.Video.DirectShow.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.BonusSkins.v16.1" />
+    <Reference Include="DevExpress.Charts.v16.1.Core, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.CodeParser.v16.1, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Data.v16.1" />
     <Reference Include="DevExpress.DataAccess.v16.1, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.DataAccess.v16.1.UI, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.ExpressApp.Reports.v16.1, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.v16.1, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.ExpressApp.Win.v16.1, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Office.v16.1.Core, Version=16.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -120,6 +122,7 @@
       <DependentUpon>DanhMucDV.cs</DependentUpon>
     </Compile>
     <Compile Include="DAO\BCBHYTDAO.cs" />
+    <Compile Include="DAO\BV_PhieuCDHADAO.cs" />
     <Compile Include="DAO\DanhMucDVDAO.cs" />
     <Compile Include="DAO\DanhMucNhanSuDAO.cs" />
     <Compile Include="DAO\MauCLSDAO.cs" />
@@ -127,6 +130,7 @@
     <Compile Include="DAO\QUANTRIDAO.cs" />
     <Compile Include="DAO\BV_BenhNhanDAO.cs" />
     <Compile Include="DTO\BCBHYT.cs" />
+    <Compile Include="DTO\BV_PhieuCDHADTO.cs" />
     <Compile Include="DTO\DanhMucDVDTO.cs" />
     <Compile Include="DTO\DanhMucMauCLSDTO.cs" />
     <Compile Include="DTO\DanhMucNhanSuDTO.cs" />
@@ -162,6 +166,12 @@
     </Compile>
     <Compile Include="FormThemThongTinKhachHang.Designer.cs">
       <DependentUpon>FormThemThongTinKhachHang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InPhieuCDHA.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InPhieuCDHA.Designer.cs">
+      <DependentUpon>InPhieuCDHA.cs</DependentUpon>
     </Compile>
     <Compile Include="KetNoiData.cs" />
     <Compile Include="NhomDV.cs">
@@ -240,6 +250,9 @@
     <EmbeddedResource Include="FormThemThongTinKhachHang.resx">
       <DependentUpon>FormThemThongTinKhachHang.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="InPhieuCDHA.resx">
+      <DependentUpon>InPhieuCDHA.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NhomDV.resx">
       <DependentUpon>NhomDV.cs</DependentUpon>
     </EmbeddedResource>
@@ -288,9 +301,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DATA\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="favicon.ico" />
     <None Include="Resources\logo2.jpg" />

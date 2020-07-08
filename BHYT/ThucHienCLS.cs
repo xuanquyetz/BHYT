@@ -23,11 +23,14 @@ namespace BHYT
         private FilterInfoCollection cameras;
         private VideoCaptureDevice cam;
         public string Ma="";
+        private DateTime? tuNgay = DateTime.Now;
+        private DateTime? denNgay = DateTime.Now;
+        
         public ThucHienCLS()
         {
             InitializeComponent();
             ReadConnect();
-            LoadBenhNhan(dateTuNgay.Value, dateDenNgay.Value);
+            LoadListPhieuCDHA(dateEditTuNgay.DateTime,dateEditDenNgay.DateTime.AddDays(1));
             Camrera();
             PlayCamera();
             LoadNhomDV();
@@ -164,9 +167,14 @@ namespace BHYT
             lbHoTen.Text = "";
             lbCD.Text = "";
             lbNamSinh.Text = "";
+            cbMauCLS.Text = "";
+            mmChanDoan.Text = "";
+            rtDeNghi.Text = "";
+            rtKetLuan.Text = "";
+            rtMauCLS.Text = "";
         }
         
-        void InsertBenhNhan()
+        void Insert_Update_BenhNhan()
         {
             string Ma = txtMaBenhNhan.Text;
             string HoTen = txtHoTen.Text;
@@ -182,41 +190,49 @@ namespace BHYT
             if (txtHoTen.Text != "" && txtNamSinh.Text != "" && txtGioiTinh.Text != "")
             {
                 if (txtGioiTinh.Text == "Nam" || txtGioiTinh.Text == "Nữ")
-                {
-                    BV_BenhNhanDAO.Instance.InsertBenhNhan(HoTen,NgaySinh,ThangSinh, NamSinh, DienThoai, GioiTinh, Email, DiaChi, SoBHYT, MaNoiDKBD);
-                    MessageBox.Show("Thêm thành công");
-                    ThongTinRong();
+                { 
+                    var bn2 = BV_BenhNhanDAO.Instance.GetListFullBV_BenhNhan().Where(q => q.Ma == Ma);
+                    if (bn2.Count(q=>q.Ma==Ma)<=0)
+                    {
+                        BV_BenhNhanDAO.Instance.InsertBenhNhan(HoTen, NgaySinh, ThangSinh, NamSinh, DienThoai, GioiTinh, Email, DiaChi, SoBHYT, MaNoiDKBD);
+                        var listBn = BV_BenhNhanDAO.Instance.GetListFullBV_BenhNhan().OrderByDescending(k => k.ThoiGianTao).First();
+                        string maBN = listBn.Ma;
+                        BV_PhieuCDHADAO.Instance.InsertBV_PhieuCDHA(cbKhoaPhong.Text, maBN,cbDichVu.SelectedValue.ToString(), cbTenBs.SelectedValue.ToString(), rtMauCLS.Text, "", rtKetLuan.Text, rtDeNghi.Text, 1, "", mmChanDoan.Text, "DaThucHien", cbMauCLS.SelectedValue.ToString(), 1, 0);
+                        XtraMessageBox.Show("Thêm thành công " + HoTen, "Thành công!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ThongTinRong();
+                    }
+                    else
+                    {
+                        BV_BenhNhanDAO.Instance.UpdateBenhNhan(HoTen, NgaySinh, ThangSinh, NamSinh, DienThoai, GioiTinh, Email, DiaChi, SoBHYT, MaNoiDKBD, Ma);
+                        XtraMessageBox.Show("Cập Nhật Thành Công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        CloseCombox();
+                    }
+                    
                 }
                 else MessageBox.Show("Vui lòng nhập đúng giới tính 'Nam'hoặc 'Nữ'");
             }
             else MessageBox.Show("Vui lòng kiểm tra lại Họ Tên, Năm Sinh, Giới Tính không được để trống");
         }
-        private void UpdateBanhNhan()
-        {
-            string Ma = txtMaBenhNhan.Text;
-            string HoTen = txtHoTen.Text;
-            int NgaySinh = int.Parse(txtNgaySinh.Text);
-            int ThangSinh = int.Parse(txtThangSinh.Text);
-            int NamSinh = int.Parse(txtNamSinh.Text);
-            string DienThoai = txtSoDienThoai.Text;
-            string GioiTinh = txtGioiTinh.Text;
-            string Email = txtEmail.Text;
-            string DiaChi = txtDiaChi.Text;
-            string SoBHYT = txtSoBHYT.Text;
-            string MaNoiDKBD = txtMaDKBD.Text;
-            if (txtMaBenhNhan.Text == "" || txtMaBenhNhan.Text == null)
-            {
-                InsertBenhNhan();
-                OpenCombox();
-                txtHoTen.Focus();
-            }
-            else 
-            {
-                BV_BenhNhanDAO.Instance.UpdateBenhNhan(HoTen, NgaySinh, ThangSinh, NamSinh, DienThoai, GioiTinh, Email, DiaChi, SoBHYT, MaNoiDKBD, Ma);
-                XtraMessageBox.Show("Cập Nhật Thành Công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                CloseCombox();
-            }
-        }
+        //private void UpdateBanhNhan()
+        //{
+        //    string Ma = txtMaBenhNhan.Text;
+        //    string HoTen = txtHoTen.Text;
+        //    int NgaySinh = int.Parse(txtNgaySinh.Text);
+        //    int ThangSinh = int.Parse(txtThangSinh.Text);
+        //    int NamSinh = int.Parse(txtNamSinh.Text);
+        //    string DienThoai = txtSoDienThoai.Text;
+        //    string GioiTinh = txtGioiTinh.Text;
+        //    string Email = txtEmail.Text;
+        //    string DiaChi = txtDiaChi.Text;
+        //    string SoBHYT = txtSoBHYT.Text;
+        //    string MaNoiDKBD = txtMaDKBD.Text;
+        //    if (txtMaBenhNhan.Text == "" || txtMaBenhNhan.Text == null) 
+        //    {
+        //        BV_BenhNhanDAO.Instance.UpdateBenhNhan(HoTen, NgaySinh, ThangSinh, NamSinh, DienThoai, GioiTinh, Email, DiaChi, SoBHYT, MaNoiDKBD, Ma);
+        //        XtraMessageBox.Show("Cập Nhật Thành Công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        CloseCombox();
+        //    }
+        //}
        
         private void OpenCombox()
         {
@@ -290,36 +306,49 @@ namespace BHYT
                 flDanhSachDV.Controls.Add(bt);
             }
         }
+        //private void LoadBenhNhan(DateTime? tuNgay, DateTime? denNgay)
+        //{
+        //    gridDanhSach.DataSource = BV_BenhNhanDAO.Instance.LoadBenhNhanByNgay(tuNgay, denNgay);
+        //    dataGridView1.DataSource = BV_BenhNhanDAO.Instance.LoadBenhNhanByNgay(tuNgay, denNgay);
+        //}
+        private void LoadListPhieuCDHA(DateTime? tuNgay, DateTime? denNgay)
+        {
+            var listCDHA = BV_PhieuCDHADAO.Instance.GetListFullBV_PhieuCDHA().Where(q => q.ThoiGian >= tuNgay && q.ThoiGian < denNgay);
+            var listBN = BV_BenhNhanDAO.Instance.GetListFullBV_BenhNhan();
+            //var listDMHH = DanhMucDVDAO.Instance.GetListDVFull();
+            var listChung = listCDHA.Join(listBN,
+                o => o.MaBN,
+                p => p.Ma,
+                (o, p) => new
+                {
+                    Ma=o.Id,
+                    HoTen = p.HoTen,
+                    NgaySinh = p.NgaySinh + "/" + p.ThangSinh + "/" + p.NamSinh,
+                    MaDV = o.MaDV,
+                    Ngay = o.ThoiGian
+                });
+            gridDanhSach.DataSource = listChung;
 
+        }
+        #region Even
         private void bt_Click(object sender, EventArgs e)
         {
             string Ten = ((sender as Button).Tag as DanhMucDVDTO).Ten;
             lbCD.Text = Ten;
-            //var fc = (sender as Button).Focus();
-            //if(fc==true)
-            //{
-            //    var mau = (sender as Button).BackColor = Color.Green;
-            //}
-
         }
-        private void LoadBenhNhan(DateTime? tuNgay, DateTime? denNgay)
-        {
-            gridDanhSach.DataSource = BV_BenhNhanDAO.Instance.LoadBenhNhanByNgay(tuNgay, denNgay);
-            dataGridView1.DataSource = BV_BenhNhanDAO.Instance.LoadBenhNhanByNgay(tuNgay, denNgay);
-        }
-        #region Even
+        
 
         private void bntSave_Click(object sender, EventArgs e)
         {
             //InsertEditBenhNhan();
             //InsertBenhNhan();
-            UpdateBanhNhan();
-            LoadBenhNhan(dateTuNgay.Value, dateDenNgay.Value);
+            Insert_Update_BenhNhan();
+            LoadListPhieuCDHA(dateEditTuNgay.DateTime, dateEditDenNgay.DateTime.AddDays(1));
         }
 
         private void bntGet_Click(object sender, EventArgs e)
         {
-            LoadBenhNhan(dateTuNgay.Value, dateDenNgay.Value);
+            LoadListPhieuCDHA(dateEditTuNgay.DateTime, dateEditDenNgay.DateTime.AddDays(1));
         }
 
         private void txtNamSinh_Click(object sender, EventArgs e)
@@ -446,10 +475,12 @@ namespace BHYT
         }
       private void bntEdit_Click(object sender, EventArgs e)
         {
+            //gridView1
+            //tileView1
             OpenCombox();
-            int row = gridView1.FocusedRowHandle;
+            int row = cardView1.FocusedRowHandle;
             string MaID = "Ma";
-            object value = gridView1.GetRowCellValue(row, MaID);
+            object value = cardView1.GetRowCellValue(row, MaID);
             if (value != null)
             {
                 Ma = value.ToString();
@@ -473,9 +504,9 @@ namespace BHYT
 
         private void gridView1_RowClick_1(object sender, DevExpress.XtraGrid.Views.Grid.RowClickEventArgs e)
         {
-            int row = gridView1.FocusedRowHandle;
+            int row = cardView1.FocusedRowHandle;
             string MaID = "Ma";
-            object value = gridView1.GetRowCellValue(row, MaID);
+            object value = cardView1.GetRowCellValue(row, MaID);
             if (value != null)
             {
                 Ma = value.ToString();
@@ -578,6 +609,75 @@ namespace BHYT
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void label28_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gridView1_RowClick_2(object sender, DevExpress.XtraGrid.Views.Grid.RowClickEventArgs e)
+        {
+            int row = gridView1.FocusedRowHandle;
+            string MaID = "Ma";
+            object value = gridView1.GetRowCellValue(row, MaID);
+            string _ma = value.ToString();
+            if (_ma != "")
+            {
+                var listCDHA = BV_PhieuCDHADAO.Instance.GetListFullBV_PhieuCDHA().Where(q=>q.Id==_ma);
+                var listBN = BV_BenhNhanDAO.Instance.GetListFullBV_BenhNhan();
+                //var listDMHH = DanhMucDVDAO.Instance.GetListDVFull();
+                var listChung = listCDHA.Join(listBN,
+                    o => o.MaBN,
+                    p => p.Ma,
+                    (o, p) => new
+                    {
+                        Ma=p.Ma,
+                        HoTen=p.HoTen,
+                        NgaySinh=p.NgaySinh,
+                        ThangSinh=p.ThangSinh,
+                        NamSinh=p.NamSinh,
+                        GioiTinh=p.GioiTinh,
+                        DiaChi=p.DiaChi,
+                        SoDienThoai=p.SoDienThoai,
+                        Email=p.Email,
+                        NguoiThucHien=o.NguoiThucHien,
+                        ChanDoan=o.ChanDoan,
+                        KhoaPhong=o.KhoaPhong,
+                        MaDV=o.MaDV,
+                        MaMauCLS=o.MaMauCLS,
+                        DeNghi=o.DeNghi,
+                        KetLuan=o.KetLuan,
+                        NoiDung=o.NoiDung,
+                        HinhAnhJson=o.HinhAnhjson,
+                        SoAnhDaChon=o.SoAnhDaChon,
+                   }).ToList();
+                var list2 = listChung.SingleOrDefault();
+                txtMaBenhNhan.EditValue = list2.Ma;
+                txtHoTen.EditValue = list2.HoTen;
+                txtNgaySinh.EditValue = list2.NgaySinh.ToString();
+                txtThangSinh.EditValue = list2.ThangSinh.ToString();
+                txtNamSinh.EditValue = list2.NamSinh.ToString();
+                txtGioiTinh.EditValue = list2.GioiTinh;
+                txtDiaChi.EditValue = list2.DiaChi;
+                txtSoDienThoai.EditValue = list2.SoDienThoai;
+                txtEmail.EditValue = list2.Email;
+                cbTenBs.Text = list2.NguoiThucHien;
+                mmChanDoan.Text = list2.ChanDoan;
+                cbKhoaPhong.Text = list2.KhoaPhong;
+                cbMauCLS.Text = list2.MaMauCLS;
+                cbDichVu.Text = list2.MaDV;
+                rtDeNghi.Text = list2.DeNghi;
+                rtKetLuan.Text = list2.KetLuan;
+                rtMauCLS.Text = list2.NoiDung;
+            }
+        }
+
+        private void bntPrint_Click(object sender, EventArgs e)
+        {
+
+            InPhieuCDHA inreport = new InPhieuCDHA();
+            inreport.ShowPreviewDialog();
         }
     }
 }

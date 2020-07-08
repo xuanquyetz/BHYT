@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BHYT.DTO
 {
@@ -21,7 +22,8 @@ namespace BHYT.DTO
         private string diaChi;
         private string soBHYT;
         private string maNoiDKBD;
-        public BV_BenhNhanDTO(string hoTen, int namSinh, string soDienThoai, string gioiTinh, string email, string diaChi, string soBHYT, string maNoiDKBD)
+        private DateTime? thoiGianTao;
+        public BV_BenhNhanDTO(string hoTen, int namSinh,int ngaySinh,int thangSinh, string soDienThoai, string gioiTinh, string email, string diaChi, string soBHYT, string maNoiDKBD)
         {
             this.HoTen = hoTen;
             this.NgaySinh = ngaySinh;
@@ -36,18 +38,28 @@ namespace BHYT.DTO
         }
         public BV_BenhNhanDTO(DataRow row)
         {
-            this.Ma = row["Ma"].ToString();
-            this.Ngay = (DateTime?)Convert.ToDateTime(row["Ngay"].ToString());
-            this.HoTen = row["HoTen"].ToString();
-            this.NamSinh = (int)row["NgaySinh"];
-            this.NamSinh = (int)row["ThangSinh"];
-            this.NamSinh =(int)row["NamSinh"];
-            this.SoDienThoai = row["DienThoai"].ToString();
-            this.GioiTinh = row["GioiTinh"].ToString();
-            this.Email = row["Email"].ToString();
-            this.DiaChi = row["DiaChi"].ToString();
-            this.SoBHYT = row["SoBHYT"].ToString();
-            this.MaNoiDKBD = row["MaNoiDKBHYT"].ToString();
+            try
+            {
+                this.Ma = row["Ma"].ToString();
+                this.Ngay = (DateTime?)Convert.ToDateTime(row["Ngay"].ToString());
+                this.ThoiGianTao = (DateTime?)Convert.ToDateTime(row["ThoiGianTao"].ToString());
+                this.HoTen = row["HoTen"].ToString();
+                this.NgaySinh = (int)row["NgaySinh"];
+                this.ThangSinh = (int)row["ThangSinh"];
+                this.NamSinh = (int)row["NamSinh"];
+                this.SoDienThoai = row["DienThoai"].ToString();
+                this.GioiTinh = row["GioiTinh"].ToString();
+                this.Email = row["Email"].ToString();
+                this.DiaChi = row["DiaChi"].ToString();
+                this.SoBHYT = row["SoBHYT"].ToString();
+                this.MaNoiDKBD = row["MaNoiDKBHYT"].ToString();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Kiểm tra lại dữ liệu " + ex.Message);
+            }
+            
         }
 
         public string HoTen
@@ -203,6 +215,19 @@ namespace BHYT.DTO
             set
             {
                 thangSinh = value;
+            }
+        }
+
+        public DateTime? ThoiGianTao
+        {
+            get
+            {
+                return thoiGianTao;
+            }
+
+            set
+            {
+                thoiGianTao = value;
             }
         }
     }
